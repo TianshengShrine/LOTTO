@@ -108,8 +108,9 @@
   function render(data) {
     let br = '';
     data.forEach(function (row) {
-      const shortPeriod = row.period ? row.period.slice(-3) : '';
-      br += '<tr><td title="' + (row.period || '') + '">' + shortPeriod + '</td><td>' + row.date + '</td>';
+      const periodStr = row.period != null ? String(row.period) : '';
+      const shortPeriod = periodStr ? periodStr.slice(-3) : '';
+      br += '<tr><td title="' + periodStr + '">' + shortPeriod + '</td><td>' + row.date + '</td>';
       for (let n = 1; n <= 49; n++) {
         let cell = '';
         if (row.main.includes(n)) {
