@@ -52,8 +52,13 @@
     background: #fafaf8; color: #888; font-weight: 400;
     padding: 4px 0; text-align: center; width: 20px; min-width: 20px;
   }
-  th:first-child, td:first-child {
+  th:nth-child(1), td:nth-child(1) {
     position: sticky; left: 0; z-index: 3;
+    background: #fafaf8; text-align: left; padding: 4px 8px;
+    color: #555; white-space: nowrap;
+  }
+  th:nth-child(2), td:nth-child(2) {
+    position: sticky; left: 62px; z-index: 3;
     background: #fafaf8; text-align: left; padding: 4px 10px;
     border-right: 1px solid #ddd; color: #555; white-space: nowrap;
   }
@@ -94,7 +99,7 @@
   const refreshBtn = document.getElementById('refreshBtn');
 
   function buildHeader() {
-    let hr = '<tr><th>日期</th>';
+    let hr = '<tr><th>期別</th><th>日期</th>';
     for (let n = 1; n <= 49; n++) hr += '<th>' + n + '</th>';
     hr += '</tr>';
     thead.innerHTML = hr;
@@ -103,7 +108,8 @@
   function render(data) {
     let br = '';
     data.forEach(function (row) {
-      br += '<tr><td>' + row.date + '</td>';
+      const shortPeriod = row.period ? row.period.slice(-3) : '';
+      br += '<tr><td title="' + (row.period || '') + '">' + shortPeriod + '</td><td>' + row.date + '</td>';
       for (let n = 1; n <= 49; n++) {
         let cell = '';
         if (row.main.includes(n)) {
