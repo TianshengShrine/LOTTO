@@ -110,12 +110,14 @@
     data.forEach(function (row) {
       const periodStr = row.period != null ? String(row.period) : '';
       const shortPeriod = periodStr ? periodStr.slice(-3) : '';
+      const mainNums = row.main.map(Number);
+      const specialNum = row.special != null ? Number(row.special) : null;
       br += '<tr><td title="' + periodStr + '">' + shortPeriod + '</td><td>' + row.date + '</td>';
       for (let n = 1; n <= 49; n++) {
         let cell = '';
-        if (row.main.includes(n)) {
+        if (mainNums.includes(n)) {
           cell = '<div class="ball main">' + n + '</div>';
-        } else if (n === row.special) {
+        } else if (n === specialNum) {
           cell = '<div class="ball special">' + n + '</div>';
         }
         br += '<td>' + cell + '</td>';
